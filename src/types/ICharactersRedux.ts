@@ -30,3 +30,10 @@ export interface Payload {
   info: Pagination;
   results: Characters[];
 }
+
+export interface State {
+  characters: Characters[] | [];
+  pagination: Pagination | null;
+  isLoading: boolean;
+  error: string | null;
+}

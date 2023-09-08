@@ -1,9 +1,10 @@
 import { FC, Suspense } from "react";
 import { Outlet } from "react-router-dom";
-import {Header} from "../../components/Header/Header";
-import {Footer} from "../../components/Footer/Footer";
+import { Header } from "../../components/Header/Header";
+import { Footer } from "../../components/Footer/Footer";
 import { Main, Wrapper } from "./Layout.styled";
 import { ToastContainer } from "react-toastify";
+import { Hero } from "../../components/Hero/Hero";
 import "react-toastify/dist/ReactToastify.css";
 
 const Layout: FC = () => {
@@ -12,7 +13,7 @@ const Layout: FC = () => {
       <Wrapper>
         <Header />
         <Main>
-          
+          <Hero />
           <Suspense>
             <Outlet />
           </Suspense>

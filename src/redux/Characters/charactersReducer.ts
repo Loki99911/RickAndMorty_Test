@@ -1,17 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getAllCharacters } from "./charactersOperations";
-import { Characters, Pagination } from "../../types/ICharactersRedux";
+import { State } from "../../types/ICharactersRedux";
 
 const pending = (state: State) => {
   state.isLoading = true;
 };
-
-interface State {
-  characters: Characters[] | [];
-  pagination: Pagination | null;
-  isLoading: boolean;
-  error: string | null;
-}
 
 const initialState: State = {
   characters: [],

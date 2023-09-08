@@ -1,13 +1,16 @@
 import styled from "styled-components";
+import bgImage from "../../assets/HeroBG.png";
 
 export const StyledHero = styled.section`
   display: flex;
+  justify-content: center;
   align-items: center;
 
-  height: 60px;
+  height: 345px;
   width: 100%;
-  padding: 0 27px;
-  border: 1px solid red;
+
+  background-image: url(${bgImage});
+  background-position: center;
 `;
 
 export const HeroTitle = styled.h1`
