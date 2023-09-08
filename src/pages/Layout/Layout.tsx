@@ -12,6 +12,7 @@ const Layout: FC = () => {
       <Wrapper>
         <Header />
         <Main>
+          
           <Suspense>
             <Outlet />
           </Suspense>
