@@ -8,4 +8,5 @@ export const MainPageWrapper = styled.section`
 export const CardsList = styled.ul`
   display: grid;
   grid-template-columns: 1fr 1fr;
+  gap: 27px;
 `;

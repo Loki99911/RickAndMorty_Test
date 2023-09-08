@@ -1,14 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllCharacters } from "./charactersOperations";
-import { State } from "../../types/ICharactersRedux";
+import { getAllCharacters} from "./charactersOperations";
+import { StateCharacters } from "../../types/ICharactersRedux";
 
-const pending = (state: State) => {
+const pending = (state: StateCharacters) => {
   state.isLoading = true;
 };
 
-const initialState: State = {
+const initialState: StateCharacters = {
   characters: [],
-  pagination: null,
   isLoading: false,
   error: null,
 };
@@ -20,16 +19,28 @@ const charactersSlice = createSlice({
   extraReducers: (builder) =>
     builder
       .addCase(getAllCharacters.pending, pending)
-      .addCase(getAllCharacters.rejected, (state: State, { payload }) => {
-        state.isLoading = false;
-        state.error = payload!.message;
-      })
+      // .addCase(getCountOfCharacters.pending, pending)
+      .addCase(
+        getAllCharacters.rejected,
+        (state: StateCharacters, { payload }) => {
+          state.isLoading = false;
+          state.error = payload!.message;
+        }
+      )
+      // .addCase(getCountOfCharacters.rejected, (state: State, { payload }) => {
+      //   state.isLoading = false;
+      //   state.error = payload!.message;
+      // })
       .addCase(getAllCharacters.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.error = null;
-        state.characters = payload.results;
-        state.pagination = payload.info;
+        state.characters = payload;
       }),
+  // .addCase(getCountOfCharacters.fulfilled, (state, { payload }) => {
+  //   state.isLoading = false;
+  //   state.error = null;
+  //   state.pagination = payload.info;
+  // }),
 });
 
 export default charactersSlice.reducer;
