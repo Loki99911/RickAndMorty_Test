@@ -4,10 +4,10 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Characters } from "../../types/ICharactersRedux";
-import {CardLink} from "./CardComp.styled"
+import { CardLink } from "./CardComp.styled";
 export default function CardComp({ character }: { character: Characters }) {
   return (
-    <Card sx={{ height: "220px"}} component="li">
+    <Card sx={{ height: "220px", borderRadius:"9px" }} component="li">
       <Box
         display="flex"
         sx={{ height: "100%", backgroundColor: "#3C3E44" }}
@@ -21,13 +21,18 @@ export default function CardComp({ character }: { character: Characters }) {
         />
         <CardContent>
           <CardLink to={`/${character.id}`}>
-            <Typography gutterBottom variant="h5" component="div">
+            <Typography
+              sx={{ fontSize: "27px", lineHeight: 1.1, fontWeight: 800 }}
+              component="h3"
+            >
               {character.name}
             </Typography>
           </CardLink>
-          <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+          <Typography
+            sx={{ fontSize: "16px", lineHeight: "26px", fontWeight: 500 }}
+            component="h3"
+          >
+            {character.name}
           </Typography>
         </CardContent>
       </Box>
