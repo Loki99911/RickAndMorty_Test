@@ -10,7 +10,6 @@ import {
   FooterYear,
 } from "./Footer.styled";
 import incodeLogo from "../../assets/IncodeLogo.png";
-
 import GitHubIcon from "@mui/icons-material/GitHub";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import FavoriteIcon from "@mui/icons-material/Favorite";

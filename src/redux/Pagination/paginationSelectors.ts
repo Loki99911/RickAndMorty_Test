@@ -1,3 +1,4 @@
 import { RootState } from "../store";
 
-export const allCharacters = (state: RootState) => state.charactersInfo.characters;
+export const totalCount = (state: RootState) => state.paginationInfo.pagination?.count;
+export const totalPages = (state: RootState) => state.paginationInfo.pagination?.pages;

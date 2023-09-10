@@ -50,7 +50,8 @@ export const FooterLink = styled.a`
   color: var(--secondary-gray);
   cursor: pointer;
   transition: color 350ms linear;
-  :hover {
+  
+  :hover{
     color: var(--secondary-white);
   }
 `;
