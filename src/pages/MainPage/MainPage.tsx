@@ -29,6 +29,7 @@ const MainPage: FC = () => {
   }, [page, dispatch]);
 
   useEffect(() => {
+    console.log("MainPage", cards);
     if (cards.length > 0) {
       addEpisodeForChar(cards).then((res) => setCurrentEpisodes(res));
     }

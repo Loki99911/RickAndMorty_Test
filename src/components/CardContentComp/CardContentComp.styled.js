@@ -1,11 +1,13 @@
-import styled from "styled-components";
-import Typography from "@mui/material/Typography";
+import { NavLink } from "react-router-dom";
 
-export const CardPageWrapper = styled.section`
-  background-color: var(--main-gray);
-  padding: 0 110px;
-  padding-bottom: 250px;
-  padding-top: 80px;
+import Typography from "@mui/material/Typography";
+import styled from "styled-components";
+
+export const CardLink = styled(NavLink)`
+  color: var(--main-white);
+  :hover {
+    color: red;
+  }
 `;
 
 export const CardCircle = styled.span`
