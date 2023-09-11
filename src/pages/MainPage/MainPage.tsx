@@ -8,14 +8,18 @@ import { MainPageWrapper, CardsList } from "./MainPage.styled";
 import { getCountOfCharacters } from "../../redux/Pagination/paginationOperations";
 import PaginationRounded from "../../components/PaginationRounded/PaginationRounded";
 import { Filter } from "../../components/Filter/Filter";
+import { addEpisodeForChar } from "../../helpers/addEpisodeForChar";
+
 const MainPage: FC = () => {
   const dispatch = useAppDispatch();
   const cards = useAppSelector(allCharacters);
   const [page, setPage] = useState(1);
+  const [currentEpisodes, setCurrentEpisodes] = useState([]);
 
   useEffect(() => {
     dispatch(getCountOfCharacters());
-  }, [dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     const currentCharacters = [1, 2, 3, 4, 5, 6].map(
@@ -24,15 +28,18 @@ const MainPage: FC = () => {
     dispatch(getAllCharacters(currentCharacters));
   }, [page, dispatch]);
 
-  console.log(page);
+  useEffect(() => {
+    if (cards.length > 0) {
+      addEpisodeForChar(cards).then((res) => setCurrentEpisodes(res));
+    }
+  }, [cards]);
 
   return (
     <MainPageWrapper>
-      <p>Main Page</p>
-      <Filter/>
+      <Filter />
       <CardsList>
         {cards.map((el) => (
-          <CardComp key={el.id} character={el} />
+          <CardComp key={el.id} character={el} episodesArr={currentEpisodes} />
         ))}
       </CardsList>
       <PaginationRounded changePage={setPage} />

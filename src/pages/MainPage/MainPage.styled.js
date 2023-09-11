@@ -4,6 +4,7 @@ export const MainPageWrapper = styled.section`
   background-color: var(--main-gray);
   padding: 0 110px;
   padding-bottom: 10px;
+  padding-top: 40px;
 `;
 
 export const CardsList = styled.ul`
