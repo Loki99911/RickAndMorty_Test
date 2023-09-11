@@ -25,8 +25,6 @@ export default function CardComp({
   const foundEpisode = episodesArr.find((obj) => obj.id === episodeNumber);
   const firstEpisode = foundEpisode ? foundEpisode.name : "Unknown";
 
-  console.log(episodesArr);
-
   let circleColor;
   switch (character.status) {
     case "Alive":

@@ -6,7 +6,7 @@ import {
   MenuItem,
   SelectChangeEvent,
 } from "@mui/material";
-import { CheckboxSelector } from "./Filter.styled";
+import { CheckboxSelector, FilterWrapper } from "./Filter.styled";
 
 export const Filter: FC = () => {
   const [filterShown, setFilterShown] = useState<boolean>(false);
@@ -29,7 +29,7 @@ export const Filter: FC = () => {
   console.log(selectedOptions);
 
   return (
-    <>
+    <FilterWrapper>
       {!filterShown && (
         <CustomBtn variant="contained" clickAction={toggleFilter}>
           Filter
@@ -51,7 +51,11 @@ export const Filter: FC = () => {
               renderValue={() => "Select Item"}
             >
               {options.map((option) => (
-                <MenuItem key={option} value={option} sx={{justifyContent:"space-between"}}>
+                <MenuItem
+                  key={option}
+                  value={option}
+                  sx={{ justifyContent: "space-between" }}
+                >
                   {option}
                   <Checkbox checked={selectedOptions.indexOf(option) > -1} />
                 </MenuItem>
@@ -60,6 +64,6 @@ export const Filter: FC = () => {
           </FormControl>
         </>
       )}
-    </>
+    </FilterWrapper>
   );
 };

@@ -18,3 +18,9 @@ export const getAllEpisodesAPI = async (array: number[]) => {
   const { data } = await axios.get(`/episode/${array}`);
   return data;
 };
+
+export const getAllCharacterById = async (id: string) => {
+  axios.defaults.baseURL = `${baseURL}`;
+  const { data } = await axios.get(`/character/${id}`);
+  return data;
+};

@@ -19,7 +19,6 @@ const charactersSlice = createSlice({
   extraReducers: (builder) =>
     builder
       .addCase(getAllCharacters.pending, pending)
-      // .addCase(getCountOfCharacters.pending, pending)
       .addCase(
         getAllCharacters.rejected,
         (state: StateCharacters, { payload }) => {
@@ -27,20 +26,11 @@ const charactersSlice = createSlice({
           state.error = payload!.message;
         }
       )
-      // .addCase(getCountOfCharacters.rejected, (state: State, { payload }) => {
-      //   state.isLoading = false;
-      //   state.error = payload!.message;
-      // })
       .addCase(getAllCharacters.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.error = null;
         state.characters = payload;
       }),
-  // .addCase(getCountOfCharacters.fulfilled, (state, { payload }) => {
-  //   state.isLoading = false;
-  //   state.error = null;
-  //   state.pagination = payload.info;
-  // }),
 });
 
 export default charactersSlice.reducer;
