@@ -12,7 +12,6 @@ export default function CardComp({
   character: Characters;
   episodesArr: Episodes[];
 }) {
- 
   return (
     <Card sx={{ height: "220px", borderRadius: "9px" }} component="li">
       <Box
@@ -26,7 +25,11 @@ export default function CardComp({
           image={character.image}
           alt={character.name}
         />
-        <CardContentComp character={character} episodesArr={episodesArr} />
+        <CardContentComp
+          character={character}
+          episodesArr={episodesArr}
+          pageType="main"
+        />
       </Box>
     </Card>
   );

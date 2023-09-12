@@ -9,6 +9,7 @@ import { getCountOfCharacters } from "../../redux/Pagination/paginationOperation
 import PaginationRounded from "../../components/PaginationRounded/PaginationRounded";
 import { Filter } from "../../components/Filter/Filter";
 import { addEpisodeForChar } from "../../helpers/addEpisodeForChar";
+import { FAB } from "../../components/FAB/FAB";
 
 const MainPage: FC = () => {
   const dispatch = useAppDispatch();
@@ -29,7 +30,6 @@ const MainPage: FC = () => {
   }, [page, dispatch]);
 
   useEffect(() => {
-    console.log("MainPage", cards);
     if (cards.length > 0) {
       addEpisodeForChar(cards).then((res) => setCurrentEpisodes(res));
     }
@@ -42,6 +42,7 @@ const MainPage: FC = () => {
         {cards.map((el) => (
           <CardComp key={el.id} character={el} episodesArr={currentEpisodes} />
         ))}
+        <FAB />
       </CardsList>
       <PaginationRounded changePage={setPage} />
     </MainPageWrapper>

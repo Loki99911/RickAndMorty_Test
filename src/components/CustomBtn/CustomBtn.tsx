@@ -3,13 +3,15 @@ import { StyledBtn } from "./CustomBtn.styled";
 export default function CustomBtn({
   children,
   clickAction,
+  buttonType = "button",
 }: {
   children: string | number;
   variant: string;
-  clickAction: ()=>void;
+  buttonType?: string;
+  clickAction?: () => void;
 }) {
   return (
-    <StyledBtn variant="contained" onClick={clickAction}>
+    <StyledBtn type={buttonType} variant="contained" onClick={clickAction}>
       {children}
     </StyledBtn>
   );

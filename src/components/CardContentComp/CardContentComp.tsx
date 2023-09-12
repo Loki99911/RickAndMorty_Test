@@ -1,24 +1,25 @@
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
 import { Characters } from "../../types/ICharactersRedux";
 import {
+  CardContentStyled,
   CardLink,
   CardCircle,
+  TypographyName,
   TypographyStatus,
   TypographyTitle,
   TypographyValue,
+  OtherInfo,
 } from "./CardContentComp.styled";
 import { Episodes } from "../../types/IEpisodesRedux";
 
 export const CardContentComp = ({
   character,
   episodesArr,
+  pageType,
 }: {
   character: Characters;
   episodesArr: Episodes[];
-  }) => {
-  console.log(episodesArr);
-  
+  pageType?: string;
+}) => {
   const lastIndex = character.episode[0].lastIndexOf("/");
   const episodeNumber = parseInt(character.episode[0].slice(lastIndex + 1), 10);
   const foundEpisode = episodesArr.find((obj) => obj.id === episodeNumber);
@@ -38,15 +39,14 @@ export const CardContentComp = ({
   }
 
   return (
-    <CardContent>
-      <CardLink to={`/${character.id}`}>
-        <Typography
-          sx={{ fontSize: "27px", lineHeight: 1.1, fontWeight: 800 }}
-          component="h3"
-        >
-          {character.name}
-        </Typography>
-      </CardLink>
+    <CardContentStyled>
+      {pageType === "main" ? (
+        <CardLink to={`/${character.id}`}>
+          <TypographyName component="h3">{character.name}</TypographyName>
+        </CardLink>
+      ) : (
+        <TypographyName component="h3">{character.name}</TypographyName>
+      )}
       <TypographyStatus component="p" sx={{ marginBottom: "8px" }}>
         <CardCircle color={circleColor} />
         {character.status} - {character.species}
@@ -57,6 +57,22 @@ export const CardContentComp = ({
       </TypographyValue>
       <TypographyTitle component="p">First seen in:</TypographyTitle>
       <TypographyValue component="p">{firstEpisode}</TypographyValue>
-    </CardContent>
+      {pageType !== "main" && (
+        <OtherInfo>
+          <TypographyTitle component="p">Other Info:</TypographyTitle>
+          <TypographyValue component="p">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed quas
+            impedit vel voluptatum, eum amet rerum consectetur dolor maiores hic
+            dolorem? Necessitatibus et aut minima voluptatibus veniam modi quae
+            ex molestias, debitis suscipit animi? Esse minima perferendis
+            inventore pariatur necessitatibus eaque et, sunt excepturi fugiat at
+            aperiam neque adipisci consequuntur sit repudiandae harum quis enim.
+            Enim, praesentium ad dolorum id labore dolores tenetur qui vitae
+            consequatur eveniet eaque quas magni necessitatibus harum
+            perferendis distinctio repellat aliquid?
+          </TypographyValue>
+        </OtherInfo>
+      )}
+    </CardContentStyled>
   );
-}
+};

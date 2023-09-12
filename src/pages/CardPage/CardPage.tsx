@@ -7,6 +7,7 @@ import { Characters } from "../../types/ICharactersRedux";
 import { CardContentComp } from "../../components/CardContentComp/CardContentComp";
 import { addEpisodeForChar } from "../../helpers/addEpisodeForChar";
 import { Episodes } from "../../types/IEpisodesRedux";
+import { FAB } from "../../components/FAB/FAB";
 
 const CardPage: FC = () => {
   const { characterId } = useParams();
@@ -41,17 +42,18 @@ const CardPage: FC = () => {
     }
   }, [character]);
 
-  // console.log(character);
   if (character === undefined) return;
-  console.log(currentEpisode);
 
   return (
     <CardPageWrapper>
-      <Card sx={{ height: "572px", borderRadius: "9px" }} component="li">
+      <Card
+        sx={{ height: "572px", borderRadius: "9px", position: "relative" }}
+        component="li"
+      >
         <Box
           display="flex"
           sx={{ height: "100%", backgroundColor: "#3C3E44" }}
-          alignItems="center"
+          alignItems="flex-start"
         >
           <CardMedia
             component="img"
@@ -61,6 +63,7 @@ const CardPage: FC = () => {
           />
           <CardContentComp character={character} episodesArr={currentEpisode} />
         </Box>
+        <FAB />
       </Card>
     </CardPageWrapper>
   );
