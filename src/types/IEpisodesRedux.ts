@@ -10,7 +10,7 @@ export interface Episodes {
   created: Date;
 }
 
-export interface Payload {
+export interface PayloadEpisodes {
   info: Pagination;
   results: Episodes[];
 }

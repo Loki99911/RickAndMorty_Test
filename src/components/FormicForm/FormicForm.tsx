@@ -1,54 +1,63 @@
-import { FC, ReactNode } from "react";
-import { Formik, Field, ErrorMessage } from "formik";
+import { FC } from "react";
+import { Formik, ErrorMessage, Field } from "formik";
 import CustomBtn from "../CustomBtn/CustomBtn";
 import { OptionalFieldWrapper, FormStyled } from "./FormicForm.styled";
+import TextField from "@mui/material/TextField";
+import { getFilterdChar } from "../../helpers/getFilterdChar";
 
 interface FormicFormProps {
   currentFields: string[];
-  children?: ReactNode;
 }
 
 interface FormicFormProps {
   currentFields: string[];
+  selectedOptions?: string[];
 }
 
-interface FormValues {
+export interface FormValues {
   [key: string]: string;
 }
 
 export const FormicForm: FC<FormicFormProps> = ({
   currentFields,
-  children,
+  selectedOptions,
 }) => {
-  const handleSubmitForm = (values: FormValues) => {
-    console.log(values);
+  const handleSubmitForm = async (values: FormValues) => {
+    console.log("handleSubmitForm");
+
+    if (selectedOptions) {
+      const result = await getFilterdChar({ selectedOptions, values });
+      console.log(result);
+    }
   };
 
   return (
     <Formik
       initialValues={{
-        name: "",
+        characterName: "",
+        locationName: "",
+        episodeName: "",
         status: "",
         species: "",
-        type: "",
+        characterType: "",
+        locationType: "",
         gender: "",
         dimension: "",
         episode: "",
       }}
-      validate={(values: FormValues) => {
-        const errors: { [key: string]: string } = {};
-        currentFields.forEach((field) => {
-          if (!values[field]) {
-            errors[field] = `Please provide ${field}`;
-          }
-        });
-        return errors;
-      }}
+      // validate={(values: FormValues) => {
+      //   const errors: { [key: string]: string } = {};
+      //   currentFields.forEach((field) => {
+      //     if (!values[field]) {
+      //       errors[field] = `Please provide ${field}`;
+      //     }
+      //   });
+      //   return errors;
+      // }}
       onSubmit={handleSubmitForm}
     >
       {() => (
         <FormStyled>
-          {children}
           <OptionalFieldWrapper>
             {currentFields.length === 0 && (
               <Field
@@ -56,6 +65,7 @@ export const FormicForm: FC<FormicFormProps> = ({
                 placeholder="Select item first"
                 name="holder"
                 className="form-field"
+                as={TextField}
               />
             )}
             {currentFields.map((field) => (
@@ -65,6 +75,7 @@ export const FormicForm: FC<FormicFormProps> = ({
                   placeholder={`Add ${field}`}
                   name={field}
                   className="form-field"
+                  as={TextField}
                 />
                 <ErrorMessage
                   name={field}
@@ -74,7 +85,6 @@ export const FormicForm: FC<FormicFormProps> = ({
               </div>
             ))}
           </OptionalFieldWrapper>
-
           <CustomBtn buttonType="submit" variant="contained">
             find
           </CustomBtn>

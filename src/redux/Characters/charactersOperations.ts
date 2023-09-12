@@ -7,21 +7,6 @@ interface ErrorResponse {
   message: string;
 }
 
-// export const getCountOfCharacters = createAsyncThunk<
-//   Payload,
-//   void,
-//   { rejectValue: ErrorResponse }
-// >("characters/getCharacters", async (_, { rejectWithValue }) => {
-//   try {
-//     const data = await getCountOfCharactersAPI();
-//     return data;
-//   } catch (error) {
-//     if (error instanceof Error) {
-//       return rejectWithValue({ message: error.message });
-//     }
-//   }
-// });
-
 export const getAllCharacters = createAsyncThunk<
   Characters[],
   number[],
