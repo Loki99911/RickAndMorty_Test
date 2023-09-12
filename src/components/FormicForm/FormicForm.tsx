@@ -1,9 +1,12 @@
 import { FC } from "react";
 import { Formik, ErrorMessage, Field } from "formik";
+import * as Yup from "yup";
 import CustomBtn from "../CustomBtn/CustomBtn";
 import { OptionalFieldWrapper, FormStyled } from "./FormicForm.styled";
 import TextField from "@mui/material/TextField";
 import { getFilterdChar } from "../../helpers/getFilterdChar";
+import { getAllCharacters } from "../../redux/Characters/charactersOperations";
+import { useAppDispatch } from "../../hooks/useCustomDispach";
 
 interface FormicFormProps {
   currentFields: string[];
@@ -11,25 +14,36 @@ interface FormicFormProps {
 
 interface FormicFormProps {
   currentFields: string[];
-  selectedOptions?: string[];
 }
 
 export interface FormValues {
   [key: string]: string;
 }
 
-export const FormicForm: FC<FormicFormProps> = ({
-  currentFields,
-  selectedOptions,
-}) => {
-  const handleSubmitForm = async (values: FormValues) => {
-    console.log("handleSubmitForm");
+export const FormicForm: FC<FormicFormProps> = ({ currentFields }) => {
+  const dispatch = useAppDispatch();
 
-    if (selectedOptions) {
-      const result = await getFilterdChar({ selectedOptions, values });
-      console.log(result);
-    }
+  const handleSubmitForm = async (values: FormValues) => {
+    const result = await getFilterdChar({ values });
+    dispatch(getAllCharacters(result));
   };
+
+  const validationSchema = Yup.object().shape({
+    status: Yup.string().test("valid-status", "Invalid status", (value) => {
+      if (!value) {
+        return true;
+      }
+      return ["alive", "dead", "unknown"].includes(value.toLowerCase());
+    }),
+    gender: Yup.string().test("valid-gender", "Invalid gender", (value) => {
+      if (!value) {
+        return true;
+      }
+      return ["female", "male", "genderless", "unknown"].includes(
+        value.toLowerCase()
+      );
+    }),
+  });
 
   return (
     <Formik
@@ -45,15 +59,7 @@ export const FormicForm: FC<FormicFormProps> = ({
         dimension: "",
         episode: "",
       }}
-      // validate={(values: FormValues) => {
-      //   const errors: { [key: string]: string } = {};
-      //   currentFields.forEach((field) => {
-      //     if (!values[field]) {
-      //       errors[field] = `Please provide ${field}`;
-      //     }
-      //   });
-      //   return errors;
-      // }}
+      validationSchema={validationSchema}
       onSubmit={handleSubmitForm}
     >
       {() => (

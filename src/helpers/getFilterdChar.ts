@@ -4,15 +4,12 @@ import {
   getFiltredEpisodesAPI,
   getFiltredLocationAPI,
 } from "../service/API/charactersApi";
+import { Characters } from "../types/ICharactersRedux";
+import { Episodes } from "../types/IEpisodesRedux";
+import { Location } from "../types/ILocation";
+import { findRepeatedValues } from "./findRepeatedValues";
 
-export const getFilterdChar = async ({
-  selectedOptions,
-  values,
-}: {
-  selectedOptions: string[];
-  values: FormValues;
-}) => {
-  const [Character, Location, Episodes] = selectedOptions;
+export const getFilterdChar = async ({ values }: { values: FormValues }) => {
   const {
     characterName,
     locationName,
@@ -25,47 +22,66 @@ export const getFilterdChar = async ({
     dimension,
     episode,
   } = values;
+  const totalArr: string[] = [];
+  let countArr = 0;
+  let filtredEpisodes: Episodes[];
+  let filtredLocation: Location[];
+  let filtredCharacter: Characters[];
 
-  if (Episodes) {
+  if (episodeName || episode) {
     try {
-      const filtredEpisodes = await getFiltredEpisodesAPI({
+      filtredEpisodes = await getFiltredEpisodesAPI({
         episodeName,
         episode,
       });
-      console.log("filtredEpisodes", filtredEpisodes);
+      filtredEpisodes.map((obj) =>
+        obj.characters.map((character) => {
+          const lastIndex = character.lastIndexOf("/");
+          const number = character.slice(lastIndex + 1);
+          totalArr.push(number);
+        })
+      );
+      countArr++;
     } catch (error) {
       console.log(error);
     }
   }
 
-  if (Location) {
+  if (locationName || locationType || dimension) {
     try {
-      const filtredLocation = await getFiltredLocationAPI({
+      filtredLocation = await getFiltredLocationAPI({
         locationName,
         locationType,
         dimension,
       });
-      console.log("filtredLocation", filtredLocation);
+      filtredLocation.map((obj) =>
+        obj.residents.map((resident) => {
+          const lastIndex = resident.lastIndexOf("/");
+          const number = resident.slice(lastIndex + 1);
+          totalArr.push(number);
+        })
+      );
+      countArr++;
     } catch (error) {
       console.log(error);
     }
   }
 
-  if (Character) {
+  if (characterName || status || species || characterType || gender) {
     try {
-      const filtredCharacter = await getFiltredCharacterAPI({
+      filtredCharacter = await getFiltredCharacterAPI({
         characterName,
         status,
         species,
         characterType,
         gender,
       });
-      console.log("filtredCharacter", filtredCharacter);
+      filtredCharacter.map((el) => totalArr.push(el.id.toString()));
+      countArr++;
     } catch (error) {
       console.log(error);
     }
   }
 
-
-  
+  return findRepeatedValues(totalArr, countArr);
 };

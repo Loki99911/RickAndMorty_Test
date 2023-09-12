@@ -67,7 +67,6 @@ export const Filter: FC = () => {
     const {
       target: { value },
     } = event;
-    console.log(value);
 
     setSelectedOptionsBackdrop(
       typeof value === "string" ? value.split(",") : value
@@ -77,8 +76,6 @@ export const Filter: FC = () => {
   const toggleBackdrop = () => {
     setOpenBackdrop((prev) => !prev);
   };
-
-  console.log(fields);
 
   return (
     <FilterWrapper>
@@ -141,10 +138,7 @@ export const Filter: FC = () => {
                     ))}
                   </CheckboxSelector>
                 </FormControl>
-                <FormicForm
-                  currentFields={fields}
-                  selectedOptions={selectedOptionsBackdrop}
-                />
+                <FormicForm currentFields={fields} />
               </InputBlock>
             </InputBlockPosition>
           </Backdrop>
