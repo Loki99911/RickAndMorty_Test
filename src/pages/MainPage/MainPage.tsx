@@ -10,12 +10,16 @@ import PaginationRounded from "../../components/PaginationRounded/PaginationRoun
 import { Filter } from "../../components/Filter/Filter";
 import { addEpisodeForChar } from "../../helpers/addEpisodeForChar";
 import { FAB } from "../../components/FAB/FAB";
+import { totalCount } from "../../redux/Pagination/paginationSelectors";
 
 const MainPage: FC = () => {
   const dispatch = useAppDispatch();
   const cards = useAppSelector(allCharacters);
+  const [fullCharactersArr, setFullCharactersArr] = useState<number[]>([]);
   const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState<number>(0);
   const [currentEpisodes, setCurrentEpisodes] = useState([]);
+  const count = useAppSelector(totalCount);
 
   useEffect(() => {
     dispatch(getCountOfCharacters());
@@ -23,11 +27,12 @@ const MainPage: FC = () => {
   }, []);
 
   useEffect(() => {
-    const currentCharacters = [1, 2, 3, 4, 5, 6].map(
-      (el) => 6 * (page - 1) + el
-    );
-    dispatch(getAllCharacters(currentCharacters));
-  }, [page, dispatch]);
+    if (count) setTotalPages(count);
+  }, [count]);
+
+  useEffect(() => {
+    dispatch(getAllCharacters({ page, characters: fullCharactersArr }));
+  }, [page, dispatch, fullCharactersArr]);
 
   useEffect(() => {
     if (cards.length > 0) {
@@ -35,16 +40,25 @@ const MainPage: FC = () => {
     }
   }, [cards]);
 
+  // const pages = useAppSelector(totalCount) || 0;
   return (
     <MainPageWrapper>
-      <Filter />
+      <Filter
+        setFullCharactersArr={setFullCharactersArr}
+        setPage={setPage}
+        setTotalPages={setTotalPages}
+      />
       <CardsList>
         {cards.map((el) => (
           <CardComp key={el.id} character={el} episodesArr={currentEpisodes} />
         ))}
         <FAB />
       </CardsList>
-      <PaginationRounded changePage={setPage} />
+      <PaginationRounded
+        changePage={setPage}
+        totalPages={totalPages}
+        page={page}
+      />
     </MainPageWrapper>
   );
 };

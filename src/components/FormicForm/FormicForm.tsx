@@ -9,17 +9,16 @@ import {
 } from "./FormicForm.styled";
 import TextField from "@mui/material/TextField";
 import { getFilterdChar } from "../../helpers/getFilterdChar";
-import { getAllCharacters } from "../../redux/Characters/charactersOperations";
-import { useAppDispatch } from "../../hooks/useCustomDispach";
-
-interface FormicFormProps {
-  currentFields: string[];
-}
+// import { getAllCharacters } from "../../redux/Characters/charactersOperations";
+// import { useAppDispatch } from "../../hooks/useCustomDispach";
 
 interface FormicFormProps {
   currentFields: string[];
   toggleBackdrop?: () => void;
-  disabled?:boolean;
+  disabled?: boolean;
+  setFullCharactersArr: (value: number[]) => void;
+  setPage: (value: number) => void;
+  setTotalPages: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export interface FormValues {
@@ -30,14 +29,20 @@ export const FormicForm: FC<FormicFormProps> = ({
   currentFields,
   toggleBackdrop,
   disabled,
+  setFullCharactersArr,
+  setPage,
+  setTotalPages,
 }) => {
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
   const handleSubmitForm = async (values: FormValues) => {
     const result = await getFilterdChar({ values });
+    setFullCharactersArr(result);
     console.log(result);
-    
-    dispatch(getAllCharacters(result));
+    setPage(1);
+    setTotalPages(result.length);
+
+    // dispatch(getAllCharacters({ page:1, characters: fullCharactersArr }));
     if (toggleBackdrop) toggleBackdrop();
   };
 

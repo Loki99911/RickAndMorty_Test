@@ -16,8 +16,13 @@ import {
 } from "./Filter.styled";
 import { FormicForm } from "../FormicForm/FormicForm";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { FilterProps } from "../../types/IFilterProps";
 
-export const Filter: FC = () => {
+export const Filter: FC<FilterProps> = ({
+  setFullCharactersArr,
+  setPage,
+  setTotalPages,
+}) => {
   const [filterShown, setFilterShown] = useState<boolean>(false);
   // const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [selectedOptionsBackdrop, setSelectedOptionsBackdrop] = useState<
@@ -94,7 +99,13 @@ export const Filter: FC = () => {
               <PseudoCheckboxSelector onClick={toggleBackdrop}>
                 Select Item <ArrowDropDownIcon />
               </PseudoCheckboxSelector>
-              <FormicForm currentFields={[]} disabled/>
+              <FormicForm
+                currentFields={[]}
+                disabled
+                setFullCharactersArr={setFullCharactersArr}
+                setPage={setPage}
+                setTotalPages={setTotalPages}
+              />
             </InputBlock>
           )}
           <Backdrop
@@ -102,7 +113,7 @@ export const Filter: FC = () => {
               zIndex: (theme) => theme.zIndex.drawer + 1,
               position: "absolute",
               width: "100%",
-              height:"100%"
+              height: "100%",
             }}
             open={openBackdrop}
             onClick={(event) => {
@@ -143,6 +154,9 @@ export const Filter: FC = () => {
                 <FormicForm
                   currentFields={fields}
                   toggleBackdrop={toggleBackdrop}
+                  setFullCharactersArr={setFullCharactersArr}
+                  setPage={setPage}
+                  setTotalPages={setTotalPages}
                 />
               </InputBlock>
             </InputBlockPosition>
