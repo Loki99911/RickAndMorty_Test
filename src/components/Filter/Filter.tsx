@@ -94,13 +94,15 @@ export const Filter: FC = () => {
               <PseudoCheckboxSelector onClick={toggleBackdrop}>
                 Select Item <ArrowDropDownIcon />
               </PseudoCheckboxSelector>
-              <FormicForm currentFields={[]} />
+              <FormicForm currentFields={[]} disabled/>
             </InputBlock>
           )}
           <Backdrop
             sx={{
               zIndex: (theme) => theme.zIndex.drawer + 1,
               position: "absolute",
+              width: "100%",
+              height:"100%"
             }}
             open={openBackdrop}
             onClick={(event) => {
@@ -138,7 +140,10 @@ export const Filter: FC = () => {
                     ))}
                   </CheckboxSelector>
                 </FormControl>
-                <FormicForm currentFields={fields} />
+                <FormicForm
+                  currentFields={fields}
+                  toggleBackdrop={toggleBackdrop}
+                />
               </InputBlock>
             </InputBlockPosition>
           </Backdrop>

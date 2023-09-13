@@ -14,11 +14,11 @@ import { Episodes } from "../../types/IEpisodesRedux";
 export const CardContentComp = ({
   character,
   episodesArr,
-  pageType,
+  pagetype,
 }: {
   character: Characters;
   episodesArr: Episodes[];
-  pageType?: string;
+  pagetype?: string;
 }) => {
   const lastIndex = character.episode[0].lastIndexOf("/");
   const episodeNumber = parseInt(character.episode[0].slice(lastIndex + 1), 10);
@@ -39,8 +39,8 @@ export const CardContentComp = ({
   }
 
   return (
-    <CardContentStyled>
-      {pageType === "main" ? (
+    <CardContentStyled pagetype={pagetype}>
+      {pagetype === "main" ? (
         <CardLink to={`/${character.id}`}>
           <TypographyName component="h3">{character.name}</TypographyName>
         </CardLink>
@@ -57,7 +57,7 @@ export const CardContentComp = ({
       </TypographyValue>
       <TypographyTitle component="p">First seen in:</TypographyTitle>
       <TypographyValue component="p">{firstEpisode}</TypographyValue>
-      {pageType !== "main" && (
+      {pagetype !== "main" && (
         <OtherInfo>
           <TypographyTitle component="p">Other Info:</TypographyTitle>
           <TypographyValue component="p">

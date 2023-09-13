@@ -12,6 +12,11 @@ export const getAllCharactersAPI = async (array: number[]) => {
   const { data } = await axios.get(`/character/${array}`);
   return data;
 };
+export const getAllFiltredCharactersAPI = async (array: number[]) => {
+  axios.defaults.baseURL = `${baseURL}`;
+  const { data } = await axios.get(`/character/${array}`);
+  return data;
+};
 
 export const getAllEpisodesAPI = async (array: number[]) => {
   axios.defaults.baseURL = `${baseURL}`;

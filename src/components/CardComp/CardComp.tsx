@@ -28,7 +28,7 @@ export default function CardComp({
         <CardContentComp
           character={character}
           episodesArr={episodesArr}
-          pageType="main"
+          pagetype="main"
         />
       </Box>
     </Card>

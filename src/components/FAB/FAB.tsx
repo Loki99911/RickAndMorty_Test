@@ -24,15 +24,49 @@ export const FAB = () => {
       >
         {isFabOpen && (
           <OpenFabWrapper>
-            <Fab size="small" color="primary" aria-label="add">
+            <Fab
+              size="small"
+              color="primary"
+              sx={{
+                backgroundColor: "#ffffff",
+                color: "#3C3E44",
+                "&:hover": {
+                  backgroundColor: "#D63D2E",
+                  color: "#FFFFFF",
+                },
+              }}
+              aria-label="add"
+            >
               <ErrorOutlineIcon />
             </Fab>
-            <Fab size="small" color="primary" aria-label="add">
-              <PiDownloadSimpleLight size="24"/>
+            <Fab
+              size="small"
+              sx={{
+                backgroundColor: "#ffffff",
+                color: "#3C3E44",
+                "&:hover": {
+                  backgroundColor: "#D63D2E",
+                  color: "#FFFFFF",
+                },
+              }}
+              aria-label="add"
+            >
+              <PiDownloadSimpleLight size="24" />
             </Fab>
           </OpenFabWrapper>
         )}
-        <Fab color="primary" aria-label="add" onClick={toggleFab}>
+        <Fab
+          sx={{
+            backgroundColor: "#ffffff",
+            color: "#3C3E44",
+            "&:hover": {
+              backgroundColor: "#D63D2E",
+              color: "#FFFFFF",
+            },
+          }}
+          aria-label="add"
+          onClick={toggleFab}
+        >
           {!isFabOpen ? <MoreVertIcon /> : <CloseIcon />}
         </Fab>
       </Box>

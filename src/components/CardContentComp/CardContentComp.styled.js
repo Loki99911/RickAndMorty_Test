@@ -5,13 +5,13 @@ import styled from "styled-components";
 
 export const CardContentStyled = styled(CardContent)`
   padding-top: ${(props) =>
-    props.pageType === "main" ? "14px" : "12px"} !important;
+    props.pagetype === "main" ? "14px" : "12px"} !important;
   padding-right: ${(props) =>
-    props.pageType === "main" ? "14px" : "16px"} !important;
+    props.pagetype === "main" ? "14px" : "16px"} !important;
   padding-bottom: ${(props) =>
-    props.pageType === "main" ? "14px" : "12px"} !important;
+    props.pagetype === "main" ? "14px" : "12px"} !important;
   padding-left: ${(props) =>
-    props.pageType === "main" ? "14px" : "42px"} !important;
+    props.pagetype === "main" ? "14px" : "42px"} !important;
 `;
 
 export const CardLink = styled(NavLink)`

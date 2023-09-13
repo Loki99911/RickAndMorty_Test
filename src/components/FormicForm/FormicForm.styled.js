@@ -13,7 +13,12 @@ export const OptionalFieldWrapper = styled.div`
   input {
     color: var(--main-gray);
     background-color: var(--secondary-white);
-    height: 100%;
   }
 `;
 
+export const InputWrapper = styled.div`
+  position: relative;
+  height: 57px;
+  border-radius: 4px;
+  overflow: hidden;
+`;

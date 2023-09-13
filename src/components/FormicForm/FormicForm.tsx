@@ -2,7 +2,11 @@ import { FC } from "react";
 import { Formik, ErrorMessage, Field } from "formik";
 import * as Yup from "yup";
 import CustomBtn from "../CustomBtn/CustomBtn";
-import { OptionalFieldWrapper, FormStyled } from "./FormicForm.styled";
+import {
+  OptionalFieldWrapper,
+  FormStyled,
+  InputWrapper,
+} from "./FormicForm.styled";
 import TextField from "@mui/material/TextField";
 import { getFilterdChar } from "../../helpers/getFilterdChar";
 import { getAllCharacters } from "../../redux/Characters/charactersOperations";
@@ -14,18 +18,27 @@ interface FormicFormProps {
 
 interface FormicFormProps {
   currentFields: string[];
+  toggleBackdrop?: () => void;
+  disabled?:boolean;
 }
 
 export interface FormValues {
   [key: string]: string;
 }
 
-export const FormicForm: FC<FormicFormProps> = ({ currentFields }) => {
+export const FormicForm: FC<FormicFormProps> = ({
+  currentFields,
+  toggleBackdrop,
+  disabled,
+}) => {
   const dispatch = useAppDispatch();
 
   const handleSubmitForm = async (values: FormValues) => {
     const result = await getFilterdChar({ values });
+    console.log(result);
+    
     dispatch(getAllCharacters(result));
+    if (toggleBackdrop) toggleBackdrop();
   };
 
   const validationSchema = Yup.object().shape({
@@ -66,32 +79,34 @@ export const FormicForm: FC<FormicFormProps> = ({ currentFields }) => {
         <FormStyled>
           <OptionalFieldWrapper>
             {currentFields.length === 0 && (
-              <Field
-                type="text"
-                placeholder="Select item first"
-                name="holder"
-                className="form-field"
-                as={TextField}
-              />
+              <InputWrapper>
+                <Field
+                  type="text"
+                  placeholder="Select item first"
+                  name="holder"
+                  className="form-field"
+                  as={TextField}
+                />
+              </InputWrapper>
             )}
             {currentFields.map((field) => (
-              <div key={field}>
+              <InputWrapper key={field}>
                 <Field
                   type="text"
                   placeholder={`Add ${field}`}
                   name={field}
-                  className="form-field"
                   as={TextField}
+                  disabled={disabled}
                 />
-                <ErrorMessage
-                  name={field}
-                  component="div"
-                  className="error-message"
-                />
-              </div>
+                <ErrorMessage name={field} component="div" />
+              </InputWrapper>
             ))}
           </OptionalFieldWrapper>
-          <CustomBtn buttonType="submit" variant="contained">
+          <CustomBtn
+            buttonType="submit"
+            variant="contained"
+            disabled={disabled}
+          >
             find
           </CustomBtn>
         </FormStyled>

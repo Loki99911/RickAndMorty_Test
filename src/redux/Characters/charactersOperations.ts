@@ -21,3 +21,18 @@ export const getAllCharacters = createAsyncThunk<
     }
   }
 });
+
+// export const getAllFiltredCharacters = createAsyncThunk<
+//   Characters[],
+//   number[],
+//   { rejectValue: ErrorResponse }
+// >("characters/getFiltredCharacters", async (params, { rejectWithValue }) => {
+//   try {
+//     const data = await getAllFiltredCharactersAPI(params);
+//     return data;
+//   } catch (error) {
+//     if (error instanceof Error) {
+//       return rejectWithValue({ message: error.message });
+//     }
+//   }
+// });

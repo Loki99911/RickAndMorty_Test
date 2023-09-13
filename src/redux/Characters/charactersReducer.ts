@@ -31,6 +31,19 @@ const charactersSlice = createSlice({
         state.error = null;
         state.characters = payload;
       }),
+      // .addCase(getAllFiltredCharacters.pending, pending)
+      // .addCase(
+      //   getAllFiltredCharacters.rejected,
+      //   (state: StateCharacters, { payload }) => {
+      //     state.isLoading = false;
+      //     state.error = payload!.message;
+      //   }
+      // )
+      // .addCase(getAllFiltredCharacters.fulfilled, (state, { payload }) => {
+      //   state.isLoading = false;
+      //   state.error = null;
+      //   state.characters = payload;
+      // }),
 });
 
 export default charactersSlice.reducer;

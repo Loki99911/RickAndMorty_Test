@@ -33,7 +33,7 @@ export const getFilterdChar = async ({ values }: { values: FormValues }) => {
       filtredEpisodes = await getFiltredEpisodesAPI({
         episodeName,
         episode,
-      });
+      });      
       filtredEpisodes.map((obj) =>
         obj.characters.map((character) => {
           const lastIndex = character.lastIndexOf("/");
@@ -82,6 +82,7 @@ export const getFilterdChar = async ({ values }: { values: FormValues }) => {
       console.log(error);
     }
   }
+console.log(totalArr);
 
   return findRepeatedValues(totalArr, countArr);
 };
