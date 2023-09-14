@@ -35,16 +35,19 @@ export const FormicForm: FC<FormicFormProps> = ({
   setPage,
   setTotalPages,
 }) => {
-  const { storage, setStorage } = useLocalStorage<string[]>("history", []);
+  const { storage, setStorage } = useLocalStorage({key:"history"});
 
   const handleSubmitForm = async (values: FormValues) => {
     const result = await getFilterdChar({ values });
-    const storEl = [selectedOptionsBackdrop, values];
+    const valuesArr = Object.values(values);
+    console.log(valuesArr);
+    
+    const storEl = [selectedOptionsBackdrop, valuesArr];
     setFullCharactersArr(result);
     setPage(1);
     setTotalPages(result.length);
-    const stringCurrentFields = JSON.stringify(storEl);
-    setStorage([...storage, stringCurrentFields]);
+    // const stringCurrentFields = JSON.stringify(storEl);
+    setStorage([...storage, storEl]);
     if (toggleBackdrop) toggleBackdrop();
   };
 

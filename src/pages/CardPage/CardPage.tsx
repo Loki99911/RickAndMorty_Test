@@ -14,7 +14,7 @@ import useLocalStorage from "../../hooks/useLocalStorage";
 const CardPage: FC = () => {
   const dispatch = useAppDispatch();
   const { characterId } = useParams();
-  const { storage, setStorage } = useLocalStorage<string[]>("history", []);
+  const { storage, setStorage } = useLocalStorage({ key: "history" });
   const [currentEpisode, setCurrentEpisode] = useState<Episodes[]>([]);
   const character = useAppSelector(currentCharacter);
 
@@ -43,6 +43,7 @@ useEffect(() => {
 // eslint-disable-next-line react-hooks/exhaustive-deps
 }, [character]);
   if (!character) return;
+console.log("page", storage);
 
   return (
     <CardPageWrapper>
@@ -63,7 +64,7 @@ useEffect(() => {
           />
           <CardContentComp character={character} episodesArr={currentEpisode} />
         </Box>
-        <FAB />
+        <FAB storage={storage}/>
       </Card>
     </CardPageWrapper>
   );

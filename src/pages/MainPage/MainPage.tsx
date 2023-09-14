@@ -12,6 +12,7 @@ import { addEpisodeForChar } from "../../helpers/addEpisodeForChar";
 import { FAB } from "../../components/FAB/FAB";
 import { totalCount } from "../../redux/Pagination/paginationSelectors";
 import { setCurrentCharacterNull } from "../../redux/Characters/charactersReducer";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 const MainPage: FC = () => {
   const dispatch = useAppDispatch();
@@ -21,6 +22,7 @@ const MainPage: FC = () => {
   const [totalPages, setTotalPages] = useState<number>(0);
   const [currentEpisodes, setCurrentEpisodes] = useState([]);
   const count = useAppSelector(totalCount);
+  const { storage} = useLocalStorage({ key: "history" });
 
   useEffect(() => {
     dispatch(getCountOfCharacters());
@@ -54,7 +56,7 @@ const MainPage: FC = () => {
         {cards.map((el) => (
           <CardComp key={el.id} character={el} episodesArr={currentEpisodes} />
         ))}
-        <FAB />
+        <FAB storage={storage} />
       </CardsList>
       <PaginationRounded
         changePage={setPage}

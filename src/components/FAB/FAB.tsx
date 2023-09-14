@@ -15,13 +15,15 @@ import {
   currentCharacter,
 } from "../../redux/Characters/charactersSelectors";
 import MyDrawer from "../Drawer/Drawer";
+// import useLocalStorage from "../../hooks/useLocalStorage";
 
-export const FAB = () => {
+export const FAB = ({ storage }: { storage: [] }) => {
   const [isFabOpen, setIsFabOpen] = useState<boolean>(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
   const [charArray, setCharArray] = useState<Characters[] | Characters>([]);
   const allCurrentChars = useAppSelector(allCharacters);
   const character = useAppSelector(currentCharacter);
+  // const { storage } = useLocalStorage({ key: "history" });
 
   useEffect(() => {
     character ? setCharArray(character) : setCharArray(allCurrentChars);
@@ -88,7 +90,11 @@ export const FAB = () => {
           {!isFabOpen ? <MoreVertIcon /> : <CloseIcon />}
         </Fab>
       </Box>
-      <MyDrawer isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen} />
+      <MyDrawer
+        storage={storage}
+        isDrawerOpen={isDrawerOpen}
+        setIsDrawerOpen={setIsDrawerOpen}
+      />
     </FabWrapper>
   );
 };

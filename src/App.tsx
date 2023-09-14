@@ -5,8 +5,6 @@ import MainPage from './pages/MainPage/MainPage';
 import CardPage from './pages/CardPage/CardPage';
 
 function App() {
-  
-
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
