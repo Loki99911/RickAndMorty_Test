@@ -132,8 +132,8 @@ export const Filter: FC<FilterProps> = ({
                     sx={{ width: "213px" }}
                     value={selectedOptionsBackdrop}
                     onChange={handleChangeBackdrop}
-                    // open={openBackdrop}
-                    // onClose={toggleBackdrop}
+                    open={openBackdrop}//!!!!!!!!!!!!!!!!!!!!!!
+                    onClose={toggleBackdrop}//!!!!!!!!!!!!!!!!!!!!!
                     inputProps={{ "aria-label": "Without label" }}
                     renderValue={() => "Select Item"}
                   >

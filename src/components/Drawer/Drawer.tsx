@@ -21,7 +21,6 @@ export default function MyDrawer({
   isDrawerOpen: boolean;
   setIsDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  // const { storage } = useLocalStorage({ key: "history" });
 
   const createHistoryItem = (item: itemType) => {
     if (typeof item === "string") {

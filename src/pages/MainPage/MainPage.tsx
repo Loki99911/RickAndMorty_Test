@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import { getAllCharacters } from "../../redux/Characters/charactersOperations";
 import { allCharacters } from "../../redux/Characters/charactersSelectors";
 import CardComp from "../../components/CardComp/CardComp";
-import { MainPageWrapper, CardsList } from "./MainPage.styled";
 import { getCountOfCharacters } from "../../redux/Pagination/paginationOperations";
 import PaginationRounded from "../../components/PaginationRounded/PaginationRounded";
 import { Filter } from "../../components/Filter/Filter";
@@ -13,6 +12,7 @@ import { FAB } from "../../components/FAB/FAB";
 import { totalCount } from "../../redux/Pagination/paginationSelectors";
 import { setCurrentCharacterNull } from "../../redux/Characters/charactersReducer";
 import useLocalStorage from "../../hooks/useLocalStorage";
+import { MainPageWrapper, CardsList } from "./MainPage.styled";
 
 const MainPage: FC = () => {
   const dispatch = useAppDispatch();
@@ -22,7 +22,7 @@ const MainPage: FC = () => {
   const [totalPages, setTotalPages] = useState<number>(0);
   const [currentEpisodes, setCurrentEpisodes] = useState([]);
   const count = useAppSelector(totalCount);
-  const { storage} = useLocalStorage({ key: "history" });
+  const { storage } = useLocalStorage({ key: "history" });
 
   useEffect(() => {
     dispatch(getCountOfCharacters());
@@ -44,7 +44,6 @@ const MainPage: FC = () => {
     }
   }, [cards]);
 
-  // const pages = useAppSelector(totalCount) || 0;
   return (
     <MainPageWrapper>
       <Filter
