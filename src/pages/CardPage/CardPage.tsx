@@ -1,32 +1,24 @@
 import { FC, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getAllCharacterById } from "../../service/API/charactersApi";
 import { CardPageWrapper } from "./CardPage.styled";
 import { Box, Card, CardMedia } from "@mui/material";
-import { Characters } from "../../types/ICharactersRedux";
 import { CardContentComp } from "../../components/CardContentComp/CardContentComp";
 import { addEpisodeForChar } from "../../helpers/addEpisodeForChar";
 import { Episodes } from "../../types/IEpisodesRedux";
 import { FAB } from "../../components/FAB/FAB";
+import { useAppDispatch, useAppSelector } from "../../hooks/useCustomDispach";
+import { getCharacterById } from "../../redux/Characters/charactersOperations";
+import { currentCharacter } from "../../redux/Characters/charactersSelectors";
 
 const CardPage: FC = () => {
+  const dispatch = useAppDispatch();
   const { characterId } = useParams();
-  const [character, setCharacter] = useState<Characters>();
   const [currentEpisode, setCurrentEpisode] = useState<Episodes[]>([]);
-
+  const character = useAppSelector(currentCharacter);
+  
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (characterId) {
-          const data = await getAllCharacterById(characterId);
-          setCharacter(data);
-        }
-      } catch (error) {
-        console.error("Ошибка при получении данных:", error);
-      }
-    };
-    fetchData();
-  }, [characterId]);
+    if (characterId) dispatch(getCharacterById(characterId));
+  }, [characterId, dispatch]);
 
   useEffect(() => {
     const characterInArr = [];
@@ -42,7 +34,7 @@ const CardPage: FC = () => {
     }
   }, [character]);
 
-  if (character === undefined) return;
+  if (!character) return;
 
   return (
     <CardPageWrapper>

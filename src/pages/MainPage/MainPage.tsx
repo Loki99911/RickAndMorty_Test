@@ -11,6 +11,7 @@ import { Filter } from "../../components/Filter/Filter";
 import { addEpisodeForChar } from "../../helpers/addEpisodeForChar";
 import { FAB } from "../../components/FAB/FAB";
 import { totalCount } from "../../redux/Pagination/paginationSelectors";
+import { setCurrentCharacterNull } from "../../redux/Characters/charactersReducer";
 
 const MainPage: FC = () => {
   const dispatch = useAppDispatch();
@@ -31,6 +32,7 @@ const MainPage: FC = () => {
   }, [count]);
 
   useEffect(() => {
+    dispatch(setCurrentCharacterNull());
     dispatch(getAllCharacters({ page, characters: fullCharactersArr }));
   }, [page, dispatch, fullCharactersArr]);
 

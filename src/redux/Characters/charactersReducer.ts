@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllCharacters} from "./charactersOperations";
+import { getAllCharacters, getCharacterById} from "./charactersOperations";
 import { StateCharacters } from "../../types/ICharactersRedux";
 
 const pending = (state: StateCharacters) => {
@@ -8,6 +8,7 @@ const pending = (state: StateCharacters) => {
 
 const initialState: StateCharacters = {
   characters: [],
+  currentCharacter:null,
   isLoading: false,
   error: null,
 };
@@ -15,7 +16,11 @@ const initialState: StateCharacters = {
 const charactersSlice = createSlice({
   name: "charactersInfo",
   initialState,
-  reducers: {},
+  reducers: {
+    setCurrentCharacterNull: (state) => {
+      state.currentCharacter = null;
+    },
+  },
   extraReducers: (builder) =>
     builder
       .addCase(getAllCharacters.pending, pending)
@@ -30,20 +35,21 @@ const charactersSlice = createSlice({
         state.isLoading = false;
         state.error = null;
         state.characters = payload;
+      })
+      .addCase(getCharacterById.pending, pending)
+      .addCase(
+        getCharacterById.rejected,
+        (state: StateCharacters, { payload }) => {
+          state.isLoading = false;
+          state.error = payload!.message;
+        }
+      )
+      .addCase(getCharacterById.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = null;
+        state.currentCharacter = payload;
       }),
-      // .addCase(getAllFiltredCharacters.pending, pending)
-      // .addCase(
-      //   getAllFiltredCharacters.rejected,
-      //   (state: StateCharacters, { payload }) => {
-      //     state.isLoading = false;
-      //     state.error = payload!.message;
-      //   }
-      // )
-      // .addCase(getAllFiltredCharacters.fulfilled, (state, { payload }) => {
-      //   state.isLoading = false;
-      //   state.error = null;
-      //   state.characters = payload;
-      // }),
 });
 
 export default charactersSlice.reducer;
+export const { setCurrentCharacterNull } = charactersSlice.actions;

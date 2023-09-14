@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Fab from "@mui/material/Fab";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
@@ -7,9 +7,23 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { PiDownloadSimpleLight } from "react-icons/pi";
 
 import { OpenFabWrapper, FabWrapper } from "./FAB.styled";
+import { uploadCSV } from "../../helpers/uploadCSV";
+import { Characters } from "../../types/ICharactersRedux";
+import { useAppSelector } from "../../hooks/useCustomDispach";
+import {
+  allCharacters,
+  currentCharacter,
+} from "../../redux/Characters/charactersSelectors";
 
 export const FAB = () => {
   const [isFabOpen, setIsFabOpen] = useState<boolean>(false);
+  const [charArray, setCharArray] = useState<Characters[] | Characters>([]);
+  const allCurrentChars = useAppSelector(allCharacters);
+  const character = useAppSelector(currentCharacter);
+
+  useEffect(() => {
+    character ? setCharArray(character) : setCharArray(allCurrentChars);
+  }, [allCurrentChars, character]);
 
   const toggleFab = () => {
     setIsFabOpen((prev) => !prev);
@@ -50,6 +64,7 @@ export const FAB = () => {
                 },
               }}
               aria-label="add"
+              onClick={() => uploadCSV(charArray)}
             >
               <PiDownloadSimpleLight size="24" />
             </Fab>

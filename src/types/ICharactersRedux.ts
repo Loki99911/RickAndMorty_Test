@@ -33,6 +33,7 @@ export interface Payload {
 
 export interface StateCharacters {
   characters: Characters[] | [];
+  currentCharacter: Characters | null;
   isLoading: boolean;
   error: string | null;
 }
