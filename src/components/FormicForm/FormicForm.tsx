@@ -9,11 +9,12 @@ import {
 } from "./FormicForm.styled";
 import TextField from "@mui/material/TextField";
 import { getFilterdChar } from "../../helpers/getFilterdChar";
-// import { getAllCharacters } from "../../redux/Characters/charactersOperations";
-// import { useAppDispatch } from "../../hooks/useCustomDispach";
+import useLocalStorage from "../../hooks/useLocalStorage";
+
 
 interface FormicFormProps {
   currentFields: string[];
+  selectedOptionsBackdrop: string[];
   toggleBackdrop?: () => void;
   disabled?: boolean;
   setFullCharactersArr: (value: number[]) => void;
@@ -27,22 +28,23 @@ export interface FormValues {
 
 export const FormicForm: FC<FormicFormProps> = ({
   currentFields,
+  selectedOptionsBackdrop,
   toggleBackdrop,
   disabled,
   setFullCharactersArr,
   setPage,
   setTotalPages,
 }) => {
-  // const dispatch = useAppDispatch();
+  const { storage, setStorage } = useLocalStorage<string[]>("history", []);
 
   const handleSubmitForm = async (values: FormValues) => {
     const result = await getFilterdChar({ values });
+    const storEl = [selectedOptionsBackdrop, values];
     setFullCharactersArr(result);
-    console.log(result);
     setPage(1);
     setTotalPages(result.length);
-
-    // dispatch(getAllCharacters({ page:1, characters: fullCharactersArr }));
+    const stringCurrentFields = JSON.stringify(storEl);
+    setStorage([...storage, stringCurrentFields]);
     if (toggleBackdrop) toggleBackdrop();
   };
 

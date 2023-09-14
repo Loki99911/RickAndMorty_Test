@@ -9,13 +9,15 @@ import { FAB } from "../../components/FAB/FAB";
 import { useAppDispatch, useAppSelector } from "../../hooks/useCustomDispach";
 import { getCharacterById } from "../../redux/Characters/charactersOperations";
 import { currentCharacter } from "../../redux/Characters/charactersSelectors";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 const CardPage: FC = () => {
   const dispatch = useAppDispatch();
   const { characterId } = useParams();
+  const { storage, setStorage } = useLocalStorage<string[]>("history", []);
   const [currentEpisode, setCurrentEpisode] = useState<Episodes[]>([]);
   const character = useAppSelector(currentCharacter);
-  
+
   useEffect(() => {
     if (characterId) dispatch(getCharacterById(characterId));
   }, [characterId, dispatch]);
@@ -34,6 +36,12 @@ const CardPage: FC = () => {
     }
   }, [character]);
 
+useEffect(() => {
+  if (character) {
+    setStorage([...storage, character.name]);
+  }
+// eslint-disable-next-line react-hooks/exhaustive-deps
+}, [character]);
   if (!character) return;
 
   return (

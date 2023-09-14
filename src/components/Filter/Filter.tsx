@@ -24,7 +24,6 @@ export const Filter: FC<FilterProps> = ({
   setTotalPages,
 }) => {
   const [filterShown, setFilterShown] = useState<boolean>(false);
-  // const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [selectedOptionsBackdrop, setSelectedOptionsBackdrop] = useState<
     string[]
   >([]);
@@ -101,6 +100,7 @@ export const Filter: FC<FilterProps> = ({
               </PseudoCheckboxSelector>
               <FormicForm
                 currentFields={[]}
+                selectedOptionsBackdrop={selectedOptionsBackdrop}
                 disabled
                 setFullCharactersArr={setFullCharactersArr}
                 setPage={setPage}
@@ -153,6 +153,7 @@ export const Filter: FC<FilterProps> = ({
                 </FormControl>
                 <FormicForm
                   currentFields={fields}
+                  selectedOptionsBackdrop={selectedOptionsBackdrop}
                   toggleBackdrop={toggleBackdrop}
                   setFullCharactersArr={setFullCharactersArr}
                   setPage={setPage}

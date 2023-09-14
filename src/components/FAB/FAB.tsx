@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Fab from "@mui/material/Fab";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
@@ -14,9 +14,11 @@ import {
   allCharacters,
   currentCharacter,
 } from "../../redux/Characters/charactersSelectors";
+import MyDrawer from "../Drawer/Drawer";
 
 export const FAB = () => {
   const [isFabOpen, setIsFabOpen] = useState<boolean>(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
   const [charArray, setCharArray] = useState<Characters[] | Characters>([]);
   const allCurrentChars = useAppSelector(allCharacters);
   const character = useAppSelector(currentCharacter);
@@ -45,11 +47,12 @@ export const FAB = () => {
                 backgroundColor: "#ffffff",
                 color: "#3C3E44",
                 "&:hover": {
-                  backgroundColor: "#D63D2E",
+                  backgroundColor: "#55CC44",
                   color: "#FFFFFF",
                 },
               }}
               aria-label="add"
+              onClick={() => setIsDrawerOpen(true)}
             >
               <ErrorOutlineIcon />
             </Fab>
@@ -59,7 +62,7 @@ export const FAB = () => {
                 backgroundColor: "#ffffff",
                 color: "#3C3E44",
                 "&:hover": {
-                  backgroundColor: "#D63D2E",
+                  backgroundColor: "#55CC44",
                   color: "#FFFFFF",
                 },
               }}
@@ -75,7 +78,7 @@ export const FAB = () => {
             backgroundColor: "#ffffff",
             color: "#3C3E44",
             "&:hover": {
-              backgroundColor: "#D63D2E",
+              backgroundColor: isFabOpen ? "#D63D2E" : "#55CC44",
               color: "#FFFFFF",
             },
           }}
@@ -85,6 +88,7 @@ export const FAB = () => {
           {!isFabOpen ? <MoreVertIcon /> : <CloseIcon />}
         </Fab>
       </Box>
+      <MyDrawer isDrawerOpen={isDrawerOpen} setIsDrawerOpen={setIsDrawerOpen} />
     </FabWrapper>
   );
 };
