@@ -1,27 +1,68 @@
-# React + TypeScript + Vite
+# Rick and Morty Creature Encyclopedia
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The "Rick and Morty Creature Encyclopedia" project is a web page designed for viewing information about creatures from the popular TV series "Rick and Morty." The main goal of the project is to create an interface that allows users to browse a list of all creatures, obtain detailed information about a selected character, and use a convenient filter to quickly locate a specific character from the extensive list provided.
 
-Currently, two official plugins are available:
+The key features of the project include:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Creature List: Users can browse a comprehensive list of creatures from the world of "Rick and Morty." Each creature is accompanied by a brief description and an image.
 
-## Expanding the ESLint configuration
+Detailed Information: When selecting a specific creature, users can access in-depth information about it, including its characteristics, history, and role in the series.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Filter and Search: To facilitate searching, users can utilize a filter that allows sorting creatures based on various parameters such as species, location, or status. Quick search by character name is also available.
 
-- Configure the top-level `parserOptions` property like this:
+Action History: User actions on the website are automatically recorded in a history log. Users can review their action history at any time, helping them keep track of the information they have accessed.
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+The "Rick and Morty Creature Encyclopedia" project provides fans of the series with a convenient and informative resource for exploring the world of characters and creatures in this captivating universe.
+***
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## How to use
+
+### Use on-line
+
+To use the application online, you can use a direct link on GitHub:
+![https://inspiring-cascaron-f56ae5.netlify.app/](./assets/GHLink.JPG)
+
+ Or faster you can use this link: **[https://inspiring-cascaron-f56ae5.netlify.app/](https://inspiring-cascaron-f56ae5.netlify.app/)**
+ 
+
+### Use localy
+
+To use the application localy, follow next steps:
+
+1. Clone the repository to your computer: `git clone` *https://inspiring-cascaron-f56ae5.netlify.app/*
+2. Navigate to the project directory: `cd UserCardFollowers`
+3. Install dependencies of project: input `npm install` in console.
+4. Start the development server: `npm run dev`
+5. It will open a new tab in the your browser: *http://Port*.
+
+#### If you have done everything correctly, you will see the following pages:
+![Main page](./assets/MainPage.JPG)
+***
+
+## Technologies
+⚡️ Base:
+TypeScript
+React
+⚡️ State:
+Redux Toolkit
+Redux Thunk
+⚡️ Routing:
+React Router
+⚡️ Requests:
+Axios
+⚡️ Work with forms:
+Formik
+⚡️ UI lib:
+Material UI
+⚡️ Styling:
+styled-component
+Material UI
+SASS/SCSS/LESS modules
+
+***
+
+## Developed by:
+_Junior Frontend Developer - Nikita Kresik_:
+**[GitHub](https://github.com/Loki99911)**,
+**[Linkedin](https://www.linkedin.com/feed/)**
+***

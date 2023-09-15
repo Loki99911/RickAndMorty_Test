@@ -43,6 +43,7 @@ export default function MyDrawer({
   return (
     <DrawerStyled
       sx={{
+        zIndex:2000,
         width: "420px",
         height: "570px",
         borderTopLeftRadius: "9px",

@@ -77,9 +77,9 @@ const MainPage: FC = () => {
               setFullCharactersArr={setFullCharactersArr}
               setPage={setPage}
               setTotalPages={setTotalPages}
-              openBackdrop={openBackdrop}
               setOpenBackdrop={setOpenBackdrop}
               inputActive={inputActive}
+              setInputActive={setInputActive}
               setfields={setfields}
               selectedOptionsBackdrop={selectedOptionsBackdrop}
               setSelectedOptionsBackdrop={setSelectedOptionsBackdrop}
@@ -88,6 +88,7 @@ const MainPage: FC = () => {
             <FormicForm
               currentFields={fields}
               selectedOptionsBackdrop={selectedOptionsBackdrop}
+              setSelectedOptionsBackdrop={setSelectedOptionsBackdrop}
               setOpenBackdrop={setOpenBackdrop}
               setInputActive={setInputActive}
               setFullCharactersArr={setFullCharactersArr}
@@ -102,10 +103,15 @@ const MainPage: FC = () => {
       ) : (
         <CardsList>
           {cards.map((el) => (
-            <CardComp key={el.id} character={el} episodesArr={currentEpisodes} />
+            <CardComp
+              key={el.id}
+              character={el}
+              episodesArr={currentEpisodes}
+            />
           ))}
           <FAB storage={storage} />
-        </CardsList>)}
+        </CardsList>
+      )}
       <PaginationRounded
         changePage={setPage}
         totalPages={totalPages}
@@ -122,6 +128,7 @@ const MainPage: FC = () => {
         onClick={(event) => {
           if (event.target === event.currentTarget) {
             setOpenBackdrop(false);
+            setSelectedOptionsBackdrop([]);
           }
         }}
       ></Backdrop>

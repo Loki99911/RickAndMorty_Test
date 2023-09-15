@@ -14,9 +14,9 @@ import {
 import { FilterProps } from "../../types/IFilterProps";
 
 export const Filter: FC<FilterProps> = ({
-  openBackdrop,
   setOpenBackdrop,
-  // inputActive,
+  inputActive,
+  setInputActive,
   setfields,
   selectedOptionsBackdrop,
   setSelectedOptionsBackdrop,
@@ -49,6 +49,7 @@ export const Filter: FC<FilterProps> = ({
       }
     });
     setfields(newFields);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedOptionsBackdrop]);
 
@@ -79,14 +80,12 @@ export const Filter: FC<FilterProps> = ({
               value={selectedOptionsBackdrop}
               onChange={handleChangeBackdrop}
               onOpen={() => {
-                // if (!inputActive) setOpenBackdrop(true);
                 setOpenBackdrop(true);
+                setInputActive(true);
               }}
-              open={openBackdrop}
-              // open={openBackdrop || inputActive}
+              open={inputActive}
               onClose={() => {
-                setOpenBackdrop(false);
-                setSelectedOptionsBackdrop([]);
+                setInputActive(false);
               }}
               inputProps={{ "aria-label": "Without label" }}
               renderValue={() => "Select Item"}
