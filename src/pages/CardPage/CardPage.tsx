@@ -8,8 +8,9 @@ import { Episodes } from "../../types/IEpisodesRedux";
 import { FAB } from "../../components/FAB/FAB";
 import { useAppDispatch, useAppSelector } from "../../hooks/useCustomDispach";
 import { getCharacterById } from "../../redux/Characters/charactersOperations";
-import { currentCharacter } from "../../redux/Characters/charactersSelectors";
+import { currentCharacter, isLoadingCurrentCharacter } from "../../redux/Characters/charactersSelectors";
 import useLocalStorage from "../../hooks/useLocalStorage";
+import { Loader } from "../../components/Loader/Loader";
 
 const CardPage: FC = () => {
   const dispatch = useAppDispatch();
@@ -17,6 +18,7 @@ const CardPage: FC = () => {
   const { storage, setStorage } = useLocalStorage({ key: "history" });
   const [currentEpisode, setCurrentEpisode] = useState<Episodes[]>([]);
   const character = useAppSelector(currentCharacter);
+  const loading = useAppSelector(isLoadingCurrentCharacter);
 
   useEffect(() => {
     if (characterId) dispatch(getCharacterById(characterId));
@@ -43,7 +45,6 @@ useEffect(() => {
 // eslint-disable-next-line react-hooks/exhaustive-deps
 }, [character]);
   if (!character) return;
-console.log("page", storage);
 
   return (
     <CardPageWrapper>
@@ -51,19 +52,22 @@ console.log("page", storage);
         sx={{ height: "572px", borderRadius: "9px", position: "relative" }}
         component="li"
       >
-        <Box
-          display="flex"
-          sx={{ height: "100%", backgroundColor: "#3C3E44" }}
-          alignItems="flex-start"
-        >
-          <CardMedia
-            component="img"
-            sx={{ height: "100%", width: "595px" }}
-            image={character.image}
-            alt={character.name}
-          />
-          <CardContentComp character={character} episodesArr={currentEpisode} />
-        </Box>
+        {loading ? (
+          <Loader />
+        ) : (
+          <Box
+            display="flex"
+            sx={{ height: "100%", backgroundColor: "#3C3E44" }}
+            alignItems="flex-start"
+          >
+            <CardMedia
+              component="img"
+              sx={{ height: "100%", width: "595px" }}
+              image={character.image}
+              alt={character.name}
+            />
+            <CardContentComp character={character} episodesArr={currentEpisode} />
+          </Box>)}
         <FAB storage={storage}/>
       </Card>
     </CardPageWrapper>

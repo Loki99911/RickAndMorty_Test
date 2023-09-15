@@ -3,10 +3,10 @@ import { Form } from "formik";
 
 export const FormStyled = styled(Form)`
   position: relative;
-  z-index: 10;
   display: flex;
   gap: 28px;
   margin-left: 28px;
+  z-index: 13001;
 `;
 
 export const OptionalFieldWrapper = styled.div`

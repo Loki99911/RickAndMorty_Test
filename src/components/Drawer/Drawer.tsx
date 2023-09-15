@@ -1,6 +1,4 @@
-// import Drawer from "@mui/material/Drawer";
 import Button from "@mui/material/Button";
-// import useLocalStorage from "../../hooks/useLocalStorage";
 import { v4 as uuidv4 } from "uuid";
 import {
   DrawerStyled,

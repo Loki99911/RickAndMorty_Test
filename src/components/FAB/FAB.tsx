@@ -5,7 +5,6 @@ import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import CloseIcon from "@mui/icons-material/Close";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { PiDownloadSimpleLight } from "react-icons/pi";
-
 import { OpenFabWrapper, FabWrapper } from "./FAB.styled";
 import { uploadCSV } from "../../helpers/uploadCSV";
 import { Characters } from "../../types/ICharactersRedux";
@@ -15,7 +14,6 @@ import {
   currentCharacter,
 } from "../../redux/Characters/charactersSelectors";
 import MyDrawer from "../Drawer/Drawer";
-// import useLocalStorage from "../../hooks/useLocalStorage";
 
 export const FAB = ({ storage }: { storage: [] }) => {
   const [isFabOpen, setIsFabOpen] = useState<boolean>(false);
@@ -23,7 +21,6 @@ export const FAB = ({ storage }: { storage: [] }) => {
   const [charArray, setCharArray] = useState<Characters[] | Characters>([]);
   const allCurrentChars = useAppSelector(allCharacters);
   const character = useAppSelector(currentCharacter);
-  // const { storage } = useLocalStorage({ key: "history" });
 
   useEffect(() => {
     character ? setCharArray(character) : setCharArray(allCurrentChars);

@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { FormValues } from "../components/FormicForm/FormicForm";
 import {
   getFiltredCharacterAPI,
@@ -43,7 +44,7 @@ export const getFilterdChar = async ({ values }: { values: FormValues }) => {
       );
       countArr++;
     } catch (error) {
-      console.log(error);
+      toast.error(`${error}`);
     }
   }
 
@@ -63,7 +64,7 @@ export const getFilterdChar = async ({ values }: { values: FormValues }) => {
       );
       countArr++;
     } catch (error) {
-      console.log(error);
+     toast.error(`${error}`);
     }
   }
 
@@ -79,10 +80,9 @@ export const getFilterdChar = async ({ values }: { values: FormValues }) => {
       filtredCharacter.map((el) => totalArr.push(el.id.toString()));
       countArr++;
     } catch (error) {
-      console.log(error);
+      toast.error(`${error}`);
     }
   }
-console.log(totalArr);
 
   return findRepeatedValues(totalArr, countArr);
 };

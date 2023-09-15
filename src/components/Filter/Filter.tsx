@@ -1,7 +1,6 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect } from "react";
 import CustomBtn from "../CustomBtn/CustomBtn";
 import {
-  Backdrop,
   Checkbox,
   FormControl,
   MenuItem,
@@ -9,27 +8,20 @@ import {
 } from "@mui/material";
 import {
   CheckboxSelector,
-  FilterWrapper,
   InputBlock,
-  PseudoCheckboxSelector,
-  InputBlockPosition,
+  HiddenFilterWrapper,
 } from "./Filter.styled";
-import { FormicForm } from "../FormicForm/FormicForm";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { FilterProps } from "../../types/IFilterProps";
 
 export const Filter: FC<FilterProps> = ({
-  setFullCharactersArr,
-  setPage,
-  setTotalPages,
+  openBackdrop,
+  setOpenBackdrop,
+  // inputActive,
+  setfields,
+  selectedOptionsBackdrop,
+  setSelectedOptionsBackdrop,
+  toggleFilter,
 }) => {
-  const [filterShown, setFilterShown] = useState<boolean>(false);
-  const [selectedOptionsBackdrop, setSelectedOptionsBackdrop] = useState<
-    string[]
-  >([]);
-  const [fields, setfields] = useState<string[]>([]);
-  const [openBackdrop, setOpenBackdrop] = useState(false);
-
   const options = ["Character", "Location", "Episodes"];
   const characterOptions = [
     "characterName",
@@ -56,14 +48,9 @@ export const Filter: FC<FilterProps> = ({
           break;
       }
     });
-    // const uniqueFields = Array.from(new Set(newFields));
     setfields(newFields);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedOptionsBackdrop]);
-
-  const toggleFilter = () => {
-    setFilterShown((prev) => !prev);
-  };
 
   const handleChangeBackdrop = (
     event: SelectChangeEvent<typeof selectedOptionsBackdrop>
@@ -77,93 +64,49 @@ export const Filter: FC<FilterProps> = ({
     );
   };
 
-  const toggleBackdrop = () => {
-    setOpenBackdrop((prev) => !prev);
-  };
-
   return (
-    <FilterWrapper>
-      {!filterShown && (
+    <>
+      <HiddenFilterWrapper>
         <CustomBtn variant="contained" clickAction={toggleFilter}>
-          Filter
+          Remove filter
         </CustomBtn>
-      )}
-      {filterShown && (
-        <>
-          <CustomBtn variant="contained" clickAction={toggleFilter}>
-            Remove filter
-          </CustomBtn>
-          {!openBackdrop && (
-            <InputBlock>
-              <PseudoCheckboxSelector onClick={toggleBackdrop}>
-                Select Item <ArrowDropDownIcon />
-              </PseudoCheckboxSelector>
-              <FormicForm
-                currentFields={[]}
-                selectedOptionsBackdrop={selectedOptionsBackdrop}
-                disabled
-                setFullCharactersArr={setFullCharactersArr}
-                setPage={setPage}
-                setTotalPages={setTotalPages}
-              />
-            </InputBlock>
-          )}
-          <Backdrop
-            sx={{
-              zIndex: (theme) => theme.zIndex.drawer + 1,
-              position: "absolute",
-              width: "100%",
-              height: "100%",
-            }}
-            open={openBackdrop}
-            onClick={(event) => {
-              console.log(event.currentTarget);
-              if (event.target === event.currentTarget) {
-                toggleBackdrop();
-              }
-            }}
-          >
-            <InputBlockPosition>
-              <InputBlock>
-                <FormControl>
-                  <CheckboxSelector
-                    multiple
-                    displayEmpty
-                    sx={{ width: "213px" }}
-                    value={selectedOptionsBackdrop}
-                    onChange={handleChangeBackdrop}
-                    open={openBackdrop}//!!!!!!!!!!!!!!!!!!!!!!
-                    onClose={toggleBackdrop}//!!!!!!!!!!!!!!!!!!!!!
-                    inputProps={{ "aria-label": "Without label" }}
-                    renderValue={() => "Select Item"}
-                  >
-                    {options.map((option) => (
-                      <MenuItem
-                        key={option}
-                        value={option}
-                        sx={{ justifyContent: "space-between" }}
-                      >
-                        {option}
-                        <Checkbox
-                          checked={selectedOptionsBackdrop.indexOf(option) > -1}
-                        />
-                      </MenuItem>
-                    ))}
-                  </CheckboxSelector>
-                </FormControl>
-                <FormicForm
-                  currentFields={fields}
-                  selectedOptionsBackdrop={selectedOptionsBackdrop}
-                  toggleBackdrop={toggleBackdrop}
-                  setFullCharactersArr={setFullCharactersArr}
-                  setPage={setPage}
-                  setTotalPages={setTotalPages}
-                />
-              </InputBlock>
-            </InputBlockPosition>
-          </Backdrop>
-        </>
-      )}
-    </FilterWrapper>
+        <InputBlock>
+          <FormControl>
+            <CheckboxSelector
+              multiple
+              displayEmpty
+              sx={{ width: "213px" }}
+              value={selectedOptionsBackdrop}
+              onChange={handleChangeBackdrop}
+              onOpen={() => {
+                // if (!inputActive) setOpenBackdrop(true);
+                setOpenBackdrop(true);
+              }}
+              open={openBackdrop}
+              // open={openBackdrop || inputActive}
+              onClose={() => {
+                setOpenBackdrop(false);
+                setSelectedOptionsBackdrop([]);
+              }}
+              inputProps={{ "aria-label": "Without label" }}
+              renderValue={() => "Select Item"}
+            >
+              {options.map((option) => (
+                <MenuItem
+                  key={option}
+                  value={option}
+                  sx={{ justifyContent: "space-between" }}
+                >
+                  {option}
+                  <Checkbox
+                    checked={selectedOptionsBackdrop.indexOf(option) > -1}
+                  />
+                </MenuItem>
+              ))}
+            </CheckboxSelector>
+          </FormControl>
+        </InputBlock>
+      </HiddenFilterWrapper>
+    </>
   );
 };

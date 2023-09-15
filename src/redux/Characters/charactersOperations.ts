@@ -4,7 +4,7 @@ import {
   getCharacterByIdAPI,
 } from "../../service/API/charactersApi.js";
 import { Characters } from "../../types/ICharactersRedux.js";
-// import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 interface ErrorResponse {
   message: string;
@@ -34,6 +34,9 @@ export const getAllCharacters = createAsyncThunk<
     return data;
   } catch (error) {
     if (error instanceof Error) {
+      toast.error(
+        `${error.message}`
+      );
       return rejectWithValue({ message: error.message });
     }
   }
@@ -51,6 +54,7 @@ export const getCharacterById = createAsyncThunk<
     }
   } catch (error) {
     if (error instanceof Error) {
+      toast.error(`${error.message}`);
       return rejectWithValue({ message: error.message });
     }
   }

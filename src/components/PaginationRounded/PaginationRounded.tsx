@@ -1,6 +1,4 @@
 import Stack from "@mui/material/Stack";
-// import { totalCount } from "../../redux/Pagination/paginationSelectors";
-// import { useAppSelector } from "../../hooks/useCustomDispach";
 import { StyledPagonation } from "./PaginationRounded.styled";
 
 export default function PaginationRounded({

@@ -11,12 +11,11 @@ import TextField from "@mui/material/TextField";
 import { getFilterdChar } from "../../helpers/getFilterdChar";
 import useLocalStorage from "../../hooks/useLocalStorage";
 
-
 interface FormicFormProps {
   currentFields: string[];
   selectedOptionsBackdrop: string[];
-  toggleBackdrop?: () => void;
-  disabled?: boolean;
+  setOpenBackdrop: React.Dispatch<React.SetStateAction<boolean>>;
+  setInputActive: React.Dispatch<React.SetStateAction<boolean>>;
   setFullCharactersArr: (value: number[]) => void;
   setPage: (value: number) => void;
   setTotalPages: React.Dispatch<React.SetStateAction<number>>;
@@ -29,26 +28,23 @@ export interface FormValues {
 export const FormicForm: FC<FormicFormProps> = ({
   currentFields,
   selectedOptionsBackdrop,
-  toggleBackdrop,
-  disabled,
+  setOpenBackdrop,
+  setInputActive,
   setFullCharactersArr,
   setPage,
   setTotalPages,
 }) => {
-  const { storage, setStorage } = useLocalStorage({key:"history"});
+  const { storage, setStorage } = useLocalStorage({ key: "history" });
 
   const handleSubmitForm = async (values: FormValues) => {
     const result = await getFilterdChar({ values });
     const valuesArr = Object.values(values);
-    console.log(valuesArr);
-    
     const storEl = [selectedOptionsBackdrop, valuesArr];
     setFullCharactersArr(result);
     setPage(1);
     setTotalPages(result.length);
-    // const stringCurrentFields = JSON.stringify(storEl);
     setStorage([...storage, storEl]);
-    if (toggleBackdrop) toggleBackdrop();
+    setOpenBackdrop(false);
   };
 
   const validationSchema = Yup.object().shape({
@@ -96,6 +92,8 @@ export const FormicForm: FC<FormicFormProps> = ({
                   name="holder"
                   className="form-field"
                   as={TextField}
+                  onFocus={() => setInputActive(true)}
+                  onBlur={() => setInputActive(false)}
                 />
               </InputWrapper>
             )}
@@ -106,17 +104,18 @@ export const FormicForm: FC<FormicFormProps> = ({
                   placeholder={`Add ${field}`}
                   name={field}
                   as={TextField}
-                  disabled={disabled}
+                  onFocus={() => {
+                    setInputActive(true);
+                  }}
+                  onBlur={() => {
+                    setInputActive(false);
+                  }}
                 />
                 <ErrorMessage name={field} component="div" />
               </InputWrapper>
             ))}
           </OptionalFieldWrapper>
-          <CustomBtn
-            buttonType="submit"
-            variant="contained"
-            disabled={disabled}
-          >
+          <CustomBtn buttonType="submit" variant="contained">
             find
           </CustomBtn>
         </FormStyled>
