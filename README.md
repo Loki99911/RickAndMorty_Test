@@ -20,7 +20,7 @@ The "Rick and Morty Creature Encyclopedia" project provides fans of the series w
 ### Use on-line
 
 To use the application online, you can use a direct link on GitHub:
-![https://inspiring-cascaron-f56ae5.netlify.app/](./assets/GHLink.JPG)
+![https://inspiring-cascaron-f56ae5.netlify.app/](/public/GHLink.JPG)
 
  Or faster you can use this link: **[https://inspiring-cascaron-f56ae5.netlify.app/](https://inspiring-cascaron-f56ae5.netlify.app/)**
  
@@ -36,7 +36,7 @@ To use the application localy, follow next steps:
 5. It will open a new tab in the your browser: *http://Port*.
 
 #### If you have done everything correctly, you will see the following pages:
-![Main page](./assets/MainPage.JPG)
+![Main page](/public/MainPage.JPG)
 ***
 
 ## Technologies
