@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
 
-// export const LOCAL_STORAGE_KEY = 'travel-app-islogin';
-
 export default function useLocalStorage({ key }: { key: string }) {
   const [storage, setStorage] = useState(() => {
     try {
