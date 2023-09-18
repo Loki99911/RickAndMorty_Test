@@ -1,10 +1,13 @@
 import { StyledBtn } from "./CustomBtn.styled";
 
 export default function CustomBtn({
+  disabled,
   children,
+  variant,
   clickAction,
   buttonType = "button",
 }: {
+  disabled?:boolean;
   children: string | number;
   variant: string;
   buttonType?: string;
@@ -12,8 +15,9 @@ export default function CustomBtn({
 }) {
   return (
     <StyledBtn
+      disabled={disabled}
       type={buttonType}
-      variant="contained"
+      variant={variant}
       onClick={clickAction}
     >
       {children}

@@ -52,16 +52,16 @@ export const FormicForm: FC<FormicFormProps> = ({
     setInputActive(false);
   };
 
-const validationSchema = Yup.object().shape({
-  status: Yup.string().oneOf(
-    ["alive", "dead", "unknown"],
-    '"alive", "dead" or "unknown"'
-  ),
-  gender: Yup.string().oneOf(
-    ["female", "male", "genderless", "unknown"],
-    '"female", "male", "genderless" or "unknown"'
-  ),
-});
+  const validationSchema = Yup.object().shape({
+    status: Yup.string().oneOf(
+      ["alive", "dead", "unknown"],
+      '"alive", "dead" or "unknown"'
+    ),
+    gender: Yup.string().oneOf(
+      ["female", "male", "genderless", "unknown"],
+      '"female", "male", "genderless" or "unknown"'
+    ),
+  });
 
   return (
     <Formik
@@ -75,7 +75,7 @@ const validationSchema = Yup.object().shape({
         locationType: "",
         gender: "",
         dimension: "",
-        episode: ""
+        episode: "",
       }}
       validationSchema={validationSchema}
       onSubmit={handleSubmitForm}
@@ -90,6 +90,7 @@ const validationSchema = Yup.object().shape({
                   placeholder="Select item first"
                   name="holder"
                   as={TextField}
+                  disabled={true}
                 />
               </InputWrapper>
             )}
@@ -105,7 +106,11 @@ const validationSchema = Yup.object().shape({
               </InputWrapper>
             ))}
           </OptionalFieldWrapper>
-          <CustomBtn buttonType="submit" variant="contained">
+          <CustomBtn
+            buttonType="submit"
+            variant="contained"
+            disabled={currentFields.length === 0 ? true : false}
+          >
             find
           </CustomBtn>
         </FormStyled>
