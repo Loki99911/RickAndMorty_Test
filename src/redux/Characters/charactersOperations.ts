@@ -31,6 +31,9 @@ export const getAllCharacters = createAsyncThunk<
 
   try {
     const data = await getAllCharactersAPI(reqArr);
+
+    
+    
     return data;
   } catch (error) {
     if (error instanceof Error) {

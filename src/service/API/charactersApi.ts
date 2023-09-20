@@ -10,12 +10,22 @@ export const getCountOfCharactersAPI = async () => {
 export const getAllCharactersAPI = async (array: number[]) => {
   axios.defaults.baseURL = `${baseURL}`;
   const { data } = await axios.get(`/character/${array}`);
+  if (Array.isArray(data)) {
+    return data;
+  } else {
+    return [data];
+  }
   return data;
 };
 
 export const getAllEpisodesAPI = async (array: number[]) => {
   axios.defaults.baseURL = `${baseURL}`;
   const { data } = await axios.get(`/episode/${array}`);
+  if (Array.isArray(data)) {
+    return data;
+  } else {
+    return [data];
+  }
   return data;
 };
 
