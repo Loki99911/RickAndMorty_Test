@@ -26,7 +26,7 @@ export interface Pagination {
   prev: string | null;
 }
 
-export interface Payload {
+export interface PayloadCharacters {
   info: Pagination;
   results: Characters[];
 }

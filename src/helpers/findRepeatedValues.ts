@@ -1,4 +1,5 @@
 export function findRepeatedValues(arr: string[], count: number): number[] {
+  
   // Создать объект для отслеживания количества повторений строк
   const counts: Record<string, number> = {};
 

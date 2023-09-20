@@ -15,7 +15,6 @@ export const getAllCharactersAPI = async (array: number[]) => {
   } else {
     return [data];
   }
-  return data;
 };
 
 export const getAllEpisodesAPI = async (array: number[]) => {
@@ -26,7 +25,6 @@ export const getAllEpisodesAPI = async (array: number[]) => {
   } else {
     return [data];
   }
-  return data;
 };
 
 export const getCharacterByIdAPI = async (id: string) => {
@@ -85,12 +83,14 @@ export const getFiltredCharacterAPI = async ({
   species,
   characterType,
   gender,
+  page,
 }: {
   characterName: string;
   status: string;
   species: string;
   characterType: string;
   gender: string;
+  page: string;
 }) => {
   axios.defaults.baseURL = `${baseURL}`;
   const params = new URLSearchParams();
@@ -109,7 +109,11 @@ export const getFiltredCharacterAPI = async ({
   if (gender) {
     params.append("gender", gender);
   }
+  if (page) {
+    params.append("page", page);
+  }
 
   const { data } = await axios.get(`/character/?${params.toString()}`);
-  return data.results;
+ 
+  return data;
 };

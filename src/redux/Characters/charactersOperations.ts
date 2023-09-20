@@ -31,16 +31,13 @@ export const getAllCharacters = createAsyncThunk<
 
   try {
     const data = await getAllCharactersAPI(reqArr);
-
-    
-    
-    return data;
+    return data as Characters[];
   } catch (error) {
     if (error instanceof Error) {
-      toast.error(
-        `${error.message}`
-      );
+      toast.error(`${error.message}`);
       return rejectWithValue({ message: error.message });
+    } else {
+      return rejectWithValue({ message: "An error occurred" });
     }
   }
 });

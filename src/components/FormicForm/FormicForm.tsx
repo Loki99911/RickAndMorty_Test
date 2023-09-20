@@ -12,6 +12,7 @@ import TextField from "@mui/material/TextField";
 import { getFilterdChar } from "../../helpers/getFilterdChar";
 import useLocalStorage from "../../hooks/useLocalStorage";
 
+
 interface FormicFormProps {
   currentFields: string[];
   selectedOptionsBackdrop: string[];
@@ -21,6 +22,7 @@ interface FormicFormProps {
   setFullCharactersArr: (value: number[]) => void;
   setPage: (value: number) => void;
   setTotalPages: React.Dispatch<React.SetStateAction<number>>;
+  setIsFetchingData:React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface FormValues {
@@ -36,11 +38,12 @@ export const FormicForm: FC<FormicFormProps> = ({
   setFullCharactersArr,
   setPage,
   setTotalPages,
+  setIsFetchingData,
 }) => {
   const { storage, setStorage } = useLocalStorage({ key: "history" });
 
   const handleSubmitForm = async (values: FormValues) => {
-    const result = await getFilterdChar({ values });
+    const result = await getFilterdChar({ values, setIsFetchingData });
     const valuesArr = Object.values(values);
     const storEl = [selectedOptionsBackdrop, valuesArr];
     setFullCharactersArr(result);

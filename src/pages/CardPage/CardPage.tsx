@@ -30,11 +30,9 @@ const CardPage: FC = () => {
       characterInArr.push(character);
     }
     if (characterInArr.length > 0) {
-      addEpisodeForChar(characterInArr).then((res: Episodes) => {
-        const resInArr = [];
-        resInArr.push(res);
-        return setCurrentEpisode(resInArr);
-      });
+     addEpisodeForChar(characterInArr).then((res: Episodes[]) => {
+       setCurrentEpisode(res);
+     });
     }
   }, [character]);
 

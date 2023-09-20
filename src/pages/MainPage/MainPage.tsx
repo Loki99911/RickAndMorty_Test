@@ -2,7 +2,10 @@ import { FC, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/useCustomDispach";
 import { useEffect } from "react";
 import { getAllCharacters } from "../../redux/Characters/charactersOperations";
-import { allCharacters, isLoadingCharacters } from "../../redux/Characters/charactersSelectors";
+import {
+  allCharacters,
+  isLoadingCharacters,
+} from "../../redux/Characters/charactersSelectors";
 import CardComp from "../../components/CardComp/CardComp";
 import { getCountOfCharacters } from "../../redux/Pagination/paginationOperations";
 import PaginationRounded from "../../components/PaginationRounded/PaginationRounded";
@@ -18,6 +21,7 @@ import { FormicForm } from "../../components/FormicForm/FormicForm";
 import CustomBtn from "../../components/CustomBtn/CustomBtn";
 import { Loader } from "../../components/Loader/Loader";
 import { scrollToTop } from "../../helpers/scrollUp";
+import { Episodes } from "../../types/IEpisodesRedux";
 
 const MainPage: FC = () => {
   const dispatch = useAppDispatch();
@@ -26,7 +30,7 @@ const MainPage: FC = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [openBackdrop, setOpenBackdrop] = useState<boolean>(false);
-  const [currentEpisodes, setCurrentEpisodes] = useState([]);
+  const [currentEpisodes, setCurrentEpisodes] = useState<Episodes[]>([]);
   const [fields, setfields] = useState<string[]>([]);
   const [inputActive, setInputActive] = useState(false);
   const [selectedOptionsBackdrop, setSelectedOptionsBackdrop] = useState<
@@ -36,6 +40,7 @@ const MainPage: FC = () => {
   const count = useAppSelector(totalCount);
   const loading = useAppSelector(isLoadingCharacters);
   const { storage } = useLocalStorage({ key: "history" });
+  const [isFetchingData, setIsFetchingData] = useState<boolean>(false);
 
   useEffect(() => {
     dispatch(getCountOfCharacters());
@@ -49,7 +54,7 @@ const MainPage: FC = () => {
   useEffect(() => {
     dispatch(setCurrentCharacterNull());
     dispatch(getAllCharacters({ page, characters: fullCharactersArr }));
-  scrollToTop();
+    scrollToTop();
   }, [page, dispatch, fullCharactersArr]);
 
   useEffect(() => {
@@ -62,42 +67,44 @@ const MainPage: FC = () => {
     setFilterShown((prev) => !prev);
   };
 
-
   return (
     <MainPageWrapper>
-      <FilterWrapper style={{ display: "flex" }}>
-        {!filterShown && (
-          <CustomBtn variant="contained" clickAction={toggleFilter}>
-            Filter
-          </CustomBtn>
-        )}
-        {filterShown && (
-          <>
-            <Filter
-              setFullCharactersArr={setFullCharactersArr}
-              setPage={setPage}
-              setTotalPages={setTotalPages}
-              setOpenBackdrop={setOpenBackdrop}
-              inputActive={inputActive}
-              setInputActive={setInputActive}
-              setfields={setfields}
-              selectedOptionsBackdrop={selectedOptionsBackdrop}
-              setSelectedOptionsBackdrop={setSelectedOptionsBackdrop}
-              toggleFilter={toggleFilter}
-            />
-            <FormicForm
-              currentFields={fields}
-              selectedOptionsBackdrop={selectedOptionsBackdrop}
-              setSelectedOptionsBackdrop={setSelectedOptionsBackdrop}
-              setOpenBackdrop={setOpenBackdrop}
-              setInputActive={setInputActive}
-              setFullCharactersArr={setFullCharactersArr}
-              setPage={setPage}
-              setTotalPages={setTotalPages}
-            />
-          </>
-        )}
-      </FilterWrapper>
+      {!isFetchingData && (
+        <FilterWrapper style={{ display: "flex" }}>
+          {!filterShown && (
+            <CustomBtn variant="contained" clickAction={toggleFilter}>
+              Filter
+            </CustomBtn>
+          )}
+          {filterShown && (
+            <>
+              <Filter
+                setFullCharactersArr={setFullCharactersArr}
+                setPage={setPage}
+                setTotalPages={setTotalPages}
+                setOpenBackdrop={setOpenBackdrop}
+                inputActive={inputActive}
+                setInputActive={setInputActive}
+                setfields={setfields}
+                selectedOptionsBackdrop={selectedOptionsBackdrop}
+                setSelectedOptionsBackdrop={setSelectedOptionsBackdrop}
+                toggleFilter={toggleFilter}
+              />
+              <FormicForm
+                currentFields={fields}
+                selectedOptionsBackdrop={selectedOptionsBackdrop}
+                setSelectedOptionsBackdrop={setSelectedOptionsBackdrop}
+                setOpenBackdrop={setOpenBackdrop}
+                setInputActive={setInputActive}
+                setFullCharactersArr={setFullCharactersArr}
+                setPage={setPage}
+                setTotalPages={setTotalPages}
+                setIsFetchingData={setIsFetchingData}
+              />
+            </>
+          )}
+        </FilterWrapper>
+      )}
       {loading ? (
         <Loader />
       ) : (
@@ -131,7 +138,9 @@ const MainPage: FC = () => {
             setSelectedOptionsBackdrop([]);
           }
         }}
-      ></Backdrop>
+      >
+        {isFetchingData && <Loader />}
+      </Backdrop>
     </MainPageWrapper>
   );
 };
