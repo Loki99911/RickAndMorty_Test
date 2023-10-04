@@ -5,6 +5,7 @@ export const allCharacters = (state: RootState) =>
   
 export const currentCharacter = (state: RootState) =>
   state.charactersInfo.currentCharacter;
+  
 export const isLoadingCharacters = (state: RootState) =>
   state.charactersInfo.isLoading;
   export const isLoadingCurrentCharacter = (state: RootState) =>
